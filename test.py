@@ -9,3 +9,6 @@ def sum_seven(a, b, c, d, e, f, g):
 
 def multiply(a, b, c):
     return a * b * c
+
+def divide_by_two(number):
+    return number / 2
