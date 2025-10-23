@@ -12,3 +12,6 @@ def multiply(a, b, c):
 
 def divide_by_two(number):
     return number / 2
+
+def add_five(number):
+    return number + 5
