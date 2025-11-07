@@ -58,30 +58,39 @@ def add_numbers(a: Union[int, float, Number], b: Union[int, float, Number]) -> U
         raise TypeError(f"Parameter 'b' must be a number, got type '{type(b).__name__}'")
     
     # Check for NaN (Not a Number) values
+    # Convert to float for checking, but only catch type conversion errors
     try:
-        if math.isnan(float(a)):
+        a_float = float(a)
+        if math.isnan(a_float):
             raise ValueError("Parameter 'a' is NaN (Not a Number). NaN values are not allowed.")
-    except (ValueError, OverflowError):
-        # If conversion to float fails or value is too large, continue with other checks
+    except (TypeError, OverflowError):
+        # If conversion to float fails due to type or overflow, continue
+        # The TypeError will be caught by the type check above
         pass
     
     try:
-        if math.isnan(float(b)):
+        b_float = float(b)
+        if math.isnan(b_float):
             raise ValueError("Parameter 'b' is NaN (Not a Number). NaN values are not allowed.")
-    except (ValueError, OverflowError):
+    except (TypeError, OverflowError):
+        # If conversion to float fails due to type or overflow, continue
         pass
     
     # Check for infinity values
     try:
-        if math.isinf(float(a)):
+        a_float = float(a)
+        if math.isinf(a_float):
             raise ValueError("Parameter 'a' is infinity. Infinite values are not allowed.")
-    except (ValueError, OverflowError):
+    except (TypeError, OverflowError):
+        # If conversion to float fails, continue
         pass
     
     try:
-        if math.isinf(float(b)):
+        b_float = float(b)
+        if math.isinf(b_float):
             raise ValueError("Parameter 'b' is infinity. Infinite values are not allowed.")
-    except (ValueError, OverflowError):
+    except (TypeError, OverflowError):
+        # If conversion to float fails, continue
         pass
     
     # Perform the addition operation
@@ -89,9 +98,11 @@ def add_numbers(a: Union[int, float, Number], b: Union[int, float, Number]) -> U
     
     # Check if the result is infinite (overflow condition)
     try:
-        if math.isinf(float(result)):
+        result_float = float(result)
+        if math.isinf(result_float):
             raise ValueError("Addition result exceeds numeric bounds and produces infinity.")
-    except (ValueError, OverflowError):
+    except (TypeError, OverflowError):
+        # If conversion to float fails, the result is still valid
         pass
     
     # Return the result
